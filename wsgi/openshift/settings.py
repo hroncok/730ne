@@ -43,6 +43,11 @@ if DEBUG:
     ALLOWED_HOSTS = []
 else:
     ALLOWED_HOSTS = ['*']
+    
+ADMINS = (
+    ('Miro Hroncok', 'miro@hroncok.cz'),
+)
+MANAGERS = ADMINS
 
 # Application definition
 
