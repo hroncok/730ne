@@ -12,11 +12,14 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 import imp
 
+BASE_DIR = os.path.dirname(os.path.realpath(__file__))
+
 ON_OPENSHIFT = False
 if 'OPENSHIFT_REPO_DIR' in os.environ:
     ON_OPENSHIFT = True
-
-BASE_DIR = os.path.dirname(os.path.realpath(__file__))
+    GOOGLE_FILE = os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'google.conf')
+else:
+    GOOGLE_FILE = os.path.join(BASE_DIR, 'google.conf')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -57,6 +60,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social.apps.django_app.default',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -96,6 +100,15 @@ TEMPLATE_DIRS = (
      os.path.join(BASE_DIR,'templates'),
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.contrib.messages.context_processors.messages',
+    'social.apps.django_app.context_processors.backends',
+)
+
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 if ON_OPENSHIFT:
@@ -116,6 +129,23 @@ else:
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
+
+# Social auth
+AUTHENTICATION_BACKENDS = (
+    'social.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_ERROR_URL = '/'
+
+try:
+    with open(GOOGLE_FILE) as f:
+        google = f.readlines()
+    SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = google[0].rstrip()
+    SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = google[1].rstrip()
+except Exception:
+    pass
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/

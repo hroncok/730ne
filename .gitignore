@@ -12,3 +12,5 @@ venv/
 virtenv/
 dist/
 build/
+*.sqlite3
+google.conf

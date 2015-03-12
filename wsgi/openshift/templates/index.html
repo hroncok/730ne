@@ -5,5 +5,14 @@
   <h1>{% block title %}7:30? Ne, děkujeme.{% endblock %} <small>A dřív už vůbec ne.</small></h1>
 </div>
 
+<h2>Podepsat petici</h2>
+{% if user.is_authenticated %}
+<p>Jste přihlášen jako FIŤák {{ user.username }}. <a  class="btn btn-xs btn-danger" href="/logout/">Odhlásit</a></p>
+{% else %}
+  {% if baddomain %}
+  <p>Prosím použijte Google účet na fakultní doméně (@fit.cvut.cz).</p>
+  {% endif %}
+    <p><a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-lg btn-primary">Přihlásit se přes fakultní Google</a></p>
+{% endif %}
 
 {% endblock %}
