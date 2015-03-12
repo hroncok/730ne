@@ -10,6 +10,14 @@
 <p>Jste přihlášen jako FIŤák {{ user.username }}
 {% if user.get_full_name %}({{ user.get_full_name }}){% endif %}.
 <a  class="btn btn-xs btn-danger" href="/logout/">Odhlásit</a></p>
+
+{% if user.signature.signed %}
+<p>Děkujeme za vaši podporu. Pokud byste si to přáli, kdykoliv se sem můžete vrátit, přihlásit se a <a href="{% url 'views.toggle' %}">svůj podpis zrušit</a>, ačkoli byste nás tím velice zarmoutili.</p>
+{% else %}
+<p><a href="{% url 'views.toggle' %}" class="btn btn-lg btn-primary">Podepsat petici</a></p>
+{% endif %}
+
+
 {% else %}
   {% if baddomain %}
   <p>Prosím použijte Google účet na fakultní doméně (@fit.cvut.cz).</p>
