@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
@@ -16,9 +17,23 @@ def home(request):
     else:
          baddomain = False
 
+    signed_list = models.Signature.objects.filter(signed=True).order_by('timestamp')
+    paginator = Paginator(signed_list, 20)
+    total = signed_list.count()
+
+    page = request.GET.get('page')
+    try:
+        signatures = paginator.page(page)
+    except PageNotAnInteger:
+        signatures = paginator.page(1)
+    except EmptyPage:
+        signatures = paginator.page(paginator.num_pages)
+
     return render_to_response('index.html', {
         'user': request.user,
-        'baddomain': baddomain
+        'baddomain': baddomain,
+        'signatures': signatures,
+        'total': total,
     }, RequestContext(request))
 
 
