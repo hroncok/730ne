@@ -48,9 +48,9 @@
     
     {% else %}
       {% if baddomain %}
-      <p>Prosím použijte Google účet na fakultní doméně (@fit.cvut.cz).</p>
+      <p>Váš primární e-mail v Usermapu musí být na doméně fit.cvut.cz.</p>
       {% endif %}
-        <p><a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-lg btn-primary">Přihlásit se přes fakultní Google</a></p>
+        <p><a href="{% url 'social:begin' 'fit' %}" class="btn btn-lg btn-primary">Přihlásit se přes fakultní účet</a></p>
     {% endif %}
     
     <h2>Signatáři ({{ total }})</h2>

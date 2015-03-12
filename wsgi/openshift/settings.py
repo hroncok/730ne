@@ -17,9 +17,9 @@ BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 ON_OPENSHIFT = False
 if 'OPENSHIFT_REPO_DIR' in os.environ:
     ON_OPENSHIFT = True
-    GOOGLE_FILE = os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'google.conf')
+    AUTH_FILE = os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'auth.conf')
 else:
-    GOOGLE_FILE = os.path.join(BASE_DIR, 'google.conf')
+    AUTH_FILE = os.path.join(BASE_DIR, 'auth.conf')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -136,7 +136,7 @@ else:
 
 # Social auth
 AUTHENTICATION_BACKENDS = (
-    'social.backends.google.GoogleOAuth2',
+    'fitauth.FITOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -144,12 +144,13 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL = '/'
 
 try:
-    with open(GOOGLE_FILE) as f:
-        google = f.readlines()
-    SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = google[0].rstrip()
-    SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = google[1].rstrip()
+    with open(AUTH_FILE) as f:
+        auth = f.readlines()
+    SOCIAL_AUTH_FIT_KEY = auth[0].rstrip()
+    SOCIAL_AUTH_FIT_SECRET = auth[1].rstrip()
 except Exception:
     pass
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
