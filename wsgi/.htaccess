@@ -1,0 +1,4 @@
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} ^www.730ne.cz
+RewriteRule ^(.*)$ http://730ne.cz/ [R=301,L]
