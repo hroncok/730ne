@@ -25,7 +25,7 @@ else:
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-default_keys = { 'SECRET_KEY': 'tjy&7h%c=q01+c5i@_-t)&n2c+y*tn7v_)vbdksnlv@s5qh%e_' }
+default_keys = {'SECRET_KEY': 'tjy&7h%c=q01+c5i@_-t)&n2c+y*tn7v_)vbdksnlv@s5qh%e_'}
 use_keys = default_keys
 if ON_OPENSHIFT:
     imp.find_module('openshiftlibs')
@@ -46,7 +46,7 @@ if DEBUG:
     ALLOWED_HOSTS = []
 else:
     ALLOWED_HOSTS = ['*']
-    
+
 ADMINS = (
     ('Miro Hroncok', 'miro@hroncok.cz'),
 )
@@ -74,22 +74,25 @@ MIDDLEWARE_CLASSES = (
 )
 
 # If you want configure the REDISCLOUD
-if 'REDISCLOUD_URL' in os.environ and 'REDISCLOUD_PORT' in os.environ and 'REDISCLOUD_PASSWORD' in os.environ:
+if 'REDISCLOUD_URL' in os.environ \
+   and 'REDISCLOUD_PORT' in os.environ and 'REDISCLOUD_PASSWORD' in os.environ:
     redis_server = os.environ['REDISCLOUD_URL']
     redis_port = os.environ['REDISCLOUD_PORT']
     redis_password = os.environ['REDISCLOUD_PASSWORD']
     CACHES = {
-        'default' : {
-            'BACKEND' : 'redis_cache.RedisCache',
-            'LOCATION' : '%s:%d'%(redis_server,int(redis_port)),
-            'OPTIONS' : {
-                'DB':0,
-                'PARSER_CLASS' : 'redis.connection.HiredisParser',
-                'PASSWORD' : redis_password,
+        'default': {
+            'BACKEND': 'redis_cache.RedisCache',
+            'LOCATION': '%s:%d' % (redis_server, int(redis_port)),
+            'OPTIONS': {
+                'DB': 0,
+                'PARSER_CLASS': 'redis.connection.HiredisParser',
+                'PASSWORD': redis_password,
             }
         }
     }
-    MIDDLEWARE_CLASSES = ('django.middleware.cache.UpdateCacheMiddleware',) + MIDDLEWARE_CLASSES + ('django.middleware.cache.FetchFromCacheMiddleware',)
+    MIDDLEWARE_CLASSES = ('django.middleware.cache.UpdateCacheMiddleware',) + \
+        MIDDLEWARE_CLASSES + \
+        ('django.middleware.cache.FetchFromCacheMiddleware',)
 
 
 ROOT_URLCONF = 'urls'
@@ -98,7 +101,7 @@ if ON_OPENSHIFT:
     WSGI_APPLICATION = 'wsgi.application'
 
 TEMPLATE_DIRS = (
-     os.path.join(BASE_DIR,'templates'),
+    os.path.join(BASE_DIR, 'templates'),
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

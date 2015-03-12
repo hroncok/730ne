@@ -12,10 +12,13 @@ except ImportError:     # Python 2
     from urlparse import urlparse
 from django.contrib.staticfiles import utils
 
+
 class Cling(WSGIHandler):
+
     """WSGI middleware that intercepts calls to the static files
     directory, as defined by the STATIC_URL setting, and serves those files.
     """
+
     def __init__(self, application, base_dir=None):
         self.application = application
         if not base_dir:

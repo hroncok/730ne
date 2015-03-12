@@ -15,7 +15,7 @@ def home(request):
         if baddomain:
             auth_logout(request)
     else:
-         baddomain = False
+        baddomain = False
 
     signed_list = models.Signature.objects.filter(signed=True).order_by('timestamp')
     paginator = Paginator(signed_list, 20)

@@ -1,17 +1,22 @@
 #!/usr/bin/env python
-import hashlib, inspect, os, random, sys
+import hashlib
+import inspect
+import os
+import random
+import sys
 
 
 # Gets the secret token provided by OpenShift
 # or generates one (this is slightly less secure, but good enough for now)
 def get_openshift_secret_token():
     token = os.getenv('OPENSHIFT_SECRET_TOKEN')
-    name  = os.getenv('OPENSHIFT_APP_NAME')
-    uuid  = os.getenv('OPENSHIFT_APP_UUID')
+    name = os.getenv('OPENSHIFT_APP_NAME')
+    uuid = os.getenv('OPENSHIFT_APP_UUID')
     if token is not None:
         return token
     elif (name is not None and uuid is not None):
-        return hashlib.sha256(name.encode('utf-8') + '-'.encode('utf-8') + uuid.encode('utf-8')).hexdigest()
+        return hashlib.sha256(
+            name.encode('utf-8') + '-'.encode('utf-8') + uuid.encode('utf-8')).hexdigest()
     return None
 
 # Loop through all provided variables and generate secure versions
@@ -23,20 +28,23 @@ def get_openshift_secret_token():
 #    'variable': name of variable,
 #    'original': original value
 #  }
-def openshift_secure(default_keys, secure_function = 'make_secure_key'):
+
+
+def openshift_secure(default_keys, secure_function='make_secure_key'):
     # Attempts to get secret token
     my_token = get_openshift_secret_token()
 
     # Only generate random values if on OpenShift
-    my_list  = default_keys
+    my_list = default_keys
 
     if my_token is not None:
         # Loop over each default_key and set the new value
         for key, value in default_keys.items():
             # Create hash out of token and this key's name
-            sha = hashlib.sha256(my_token.encode('utf-8') + '-'.encode('utf-8') + key.encode('utf-8')).hexdigest()
+            sha = hashlib.sha256(my_token.encode('utf-8') + '-'.encode(
+                'utf-8') + key.encode('utf-8')).hexdigest()
             # Pass a dictionary so we can add stuff without breaking existing calls
-            vals = { 'hash': sha, 'variable': key, 'original': value }
+            vals = {'hash': sha, 'variable': key, 'original': value}
             # Call user specified function or just return hash
             my_list[key] = sha
             if secure_function is not None:
@@ -52,36 +60,38 @@ def openshift_secure(default_keys, secure_function = 'make_secure_key'):
         calling_file = inspect.stack()[1][1]
         if os.getenv('OPENSHIFT_REPO_DIR'):
             base = os.getenv('OPENSHIFT_REPO_DIR')
-            calling_file.replace(base,'')
-        sys.stderr.write("OPENSHIFT WARNING: Using default values for secure variables, please manually modify in " + calling_file + "\n")
+            calling_file.replace(base, '')
+        sys.stderr.write(
+            "OPENSHIFT WARNING: Using default values for secure variables,"
+            "please manually modify in " + calling_file + "\n")
 
     return my_list
 
 
 # This function transforms default keys into per-deployment random keys;
 def make_secure_key(key_info):
-	hashcode = key_info['hash']
-	key      = key_info['variable']
-	original = key_info['original']
+    hashcode = key_info['hash']
+    key = key_info['variable']
+    original = key_info['original']
 
-	# These are the legal password characters
-	# as per the Django source code
-	# (django/contrib/auth/models.py)
-	chars  = 'abcdefghjkmnpqrstuvwxyz'
-	chars += 'ABCDEFGHJKLMNPQRSTUVWXYZ'
-	chars += '23456789'
+    # These are the legal password characters
+    # as per the Django source code
+    # (django/contrib/auth/models.py)
+    chars = 'abcdefghjkmnpqrstuvwxyz'
+    chars += 'ABCDEFGHJKLMNPQRSTUVWXYZ'
+    chars += '23456789'
 
-	# Use the hash to seed the RNG
-	random.seed(int("0x" + hashcode[:8], 0))
+    # Use the hash to seed the RNG
+    random.seed(int("0x" + hashcode[:8], 0))
 
-	# Create a random string the same length as the default
-	rand_key = ''
-	for _ in range(len(original)):
-		rand_pos = random.randint(0,len(chars))
-		rand_key += chars[rand_pos:(rand_pos+1)]
+    # Create a random string the same length as the default
+    rand_key = ''
+    for _ in range(len(original)):
+        rand_pos = random.randint(0, len(chars))
+        rand_key += chars[rand_pos:(rand_pos + 1)]
 
-	# Reset the RNG
-	random.seed()
+    # Reset the RNG
+    random.seed()
 
-	# Set the value
-	return rand_key
+    # Set the value
+    return rand_key
