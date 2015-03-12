@@ -1,0 +1,14 @@
+language: python
+python:
+- '3.3'
+install: pip install pep8
+script: pep8 --max-line-length=99 .
+deploy:
+  provider: openshift
+  user: miro@hroncok.cz
+  password:
+    secure: xYnblOX8pm69Eemed3ucXc5AO8tCjWL7BoykMdWRcGAfNpthjNv4DyuBnD3clDCORs3RvigpXTwyRoCSo4saQ0jqUiRaheFXDfHP3ETOigkr/8p1SFIDfBvv2oFp9Zix/laDeTIBw78AFRQckFqKkI+ekwjDu5Q09fIh4e4t/I0=
+  app: 730ne
+  domain: hroncok
+  on:
+    repo: hroncok/730ne
