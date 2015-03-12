@@ -51,8 +51,9 @@
     
     
     {% else %}
-      {% if baddomain %}
-      <p>Váš primární e-mail v Usermapu musí být na doméně fit.cvut.cz.</p>
+      {% if badroles %}
+      <p>Podle Usermapu nejste student ani zaměstnanec FIT ČVUT.
+      Pokud si myslíte, že je to špatně, kontaktujte nás přes GitHub (odkaz je v patičce).</p>
       {% endif %}
         <p><a href="{% url 'social:begin' 'fit' %}" class="btn btn-lg btn-primary">Přihlásit se přes fakultní účet</a></p>
     {% endif %}

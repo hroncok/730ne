@@ -7,15 +7,17 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from signatures import models
+from fitauth import get_roles
 
 
 def home(request):
     if request.user.is_authenticated():
-        baddomain = not request.user.email.endswith('@fit.cvut.cz')
-        if baddomain:
+        roles = get_roles(request.user)
+        badroles = ('B-18000-STUDENT' or 'B-18000-ZAMESTNANEC') not in roles
+        if badroles:
             auth_logout(request)
     else:
-        baddomain = False
+        badroles = False
 
     longuser = len(request.user.username) > 12
 
@@ -33,7 +35,7 @@ def home(request):
 
     return render_to_response('index.html', {
         'user': request.user,
-        'baddomain': baddomain,
+        'badroles': badroles,
         'longuser': longuser,
         'signatures': signatures,
         'total': total,

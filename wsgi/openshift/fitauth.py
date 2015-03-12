@@ -32,3 +32,12 @@ class FITOAuth2(BaseOAuth2):
         except ValueError:
             pass
         return data
+
+
+def get_roles(user):
+    """Gets latest roles of given user"""
+    extra_data = user.social_auth.latest(field_name='pk').extra_data
+    try:
+        return extra_data['roles']
+    except KeyError:
+        return []
