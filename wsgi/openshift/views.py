@@ -17,6 +17,8 @@ def home(request):
     else:
         baddomain = False
 
+    longuser = len(request.user.username) > 12
+
     signed_list = models.Signature.objects.filter(signed=True).order_by('timestamp')
     paginator = Paginator(signed_list, 20)
     total = signed_list.count()
@@ -32,6 +34,7 @@ def home(request):
     return render_to_response('index.html', {
         'user': request.user,
         'baddomain': baddomain,
+        'longuser': longuser,
         'signatures': signatures,
         'total': total,
     }, RequestContext(request))

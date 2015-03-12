@@ -38,6 +38,10 @@
     <p>Jste přihlášen jako FIŤák {{ user.username }}
     {% if user.get_full_name %}({{ user.get_full_name }}){% endif %}.
     <a  class="btn btn-xs btn-danger" href="/logout/">Odhlásit</a></p>
+
+    {% if longuser %}
+      <p>Pokud jste se v minulosti přihlásili na tento web přes Google a petici podepsali, prosím, nepodepisujte ji znovu.</p>
+    {% endif %}
     
     {% if user.signature.signed %}
     <p>Děkujeme za vaši podporu. Pokud byste si to přáli, kdykoliv se sem můžete vrátit, přihlásit se a <a href="{% url 'views.toggle' %}">svůj podpis zrušit</a>, ačkoli byste nás tím velice zarmoutili.</p>
