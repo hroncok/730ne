@@ -1,0 +1,4 @@
+a[href^="http://"], a[href^="https://"] {
+  background: url("link-external.png") center right no-repeat;
+  padding-right: 13px;
+}
