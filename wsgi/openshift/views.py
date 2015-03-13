@@ -20,7 +20,7 @@ def home(request):
         badroles = False
 
     signed_list = models.Signature.objects.filter(signed=True).order_by('timestamp')
-    paginator = Paginator(signed_list, 40)
+    paginator = Paginator(signed_list, 50)
     total = signed_list.count()
 
     page = request.GET.get('page')
