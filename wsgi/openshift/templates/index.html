@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load detail %}
+{% load staticfiles %}
 {% block content %}
 
 <div class="page-header">
@@ -17,9 +18,12 @@
     <p>[Data z nějaké studie, potřeba dohledat]</p>
 
     <h3>Na výuku v tuto hodinu prakticky nikdo nechodí</h3>
+    <p>Malá ochutnávka ze studentské ankety, u předmětu s přednáškou v pondělí 7:15 ráno. Přednáška byla oproti tradičnímu času 7:30 ještě o 15 minut dříve, což si někteří studenti ani nevšimli, protože tam zkrátka nikdy nebyli:</p>
     <blockquote class="twitter-tweet" lang="cs">
       <p>Drahá <a href="https://twitter.com/FIT_CTU">@FIT_CTU</a>, kdy už to konečně pochopíš? <a href="http://t.co/9QLnVEPtOb">pic.twitter.com/9QLnVEPtOb</a></p>&mdash; Miro Hrončok (@hroncok) <a href="https://twitter.com/hroncok/status/575810882397151233">12. března, 2015</a>
     </blockquote>
+    <p>Zde pak přikládám pro ilustraci ještě obrázek z Facebookové skupiny <em>Hlášky z FITu</em>:</p>
+    <p><img src="{% static 'adu.png' %}" alt="[ADU][Zdarek] Při vstupu do přednáškovky v 7:30 ráno, kde sedí jen hrstka největších vytrvalců, utrousí: Je to paráda, nejsem tady sám." class="img-responsive" /></p>
 
     <h3>I vyučující podává menší výkon</h3>
     <p>Uvědomujeme si, že existují pedagogové, kteří si výuku před osmou hodinou vybrali sami,
