@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load detail %}
 {% block content %}
 
 <div class="page-header">
@@ -67,7 +68,7 @@
         </tr>
       {% for signature in signatures %}
         <tr>
-          <td>{% if signature.user.get_full_name %}{{ signature.user.get_full_name }} ({{ signature.user }}){% else %}{{ signature.user }}{% endif %}</td>
+          <td>{{ signature.user|detail }}</td>
           <td>{{ signature.timestamp }}</td>
         </tr>
       {% empty %}
