@@ -75,6 +75,14 @@
 
     {% if user.signature.signed %}
     <p>Děkujeme za vaši podporu. Pokud byste si to přál(a), kdykoliv se sem můžete vrátit, přihlásit se a <a href="{% url 'views.toggle' %}">svůj podpis zrušit</a>, ačkoli byste nás tím velice zarmoutil(a).</p>
+
+    <p>Pomozte nám petici rozšířit:</p>
+    <p>
+      <a href="https://twitter.com/share" class="twitter-share-button" lang="cs" data-text="Podepsal jsem petici proti výuce v 7:30 na @FIT_CTU." data-hashtags="730ne">Tweet</a>
+      <div id="fb-root"></div>
+      <div class="fb-share-button" data-layout="button_count"></div>
+    </p>
+
     {% else %}
     <p><a href="{% url 'views.toggle' %}" class="btn btn-lg btn-primary">Podepsat petici</a></p>
     {% endif %}
@@ -129,4 +137,12 @@
 
 {% block scripts %}
     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/cs_CZ/sdk.js#xfbml=1&appId=855997864419145&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 {% endblock %}
