@@ -22,7 +22,7 @@ def home(request):
     longuser = len(request.user.username) > 12
 
     signed_list = models.Signature.objects.filter(signed=True).order_by('timestamp')
-    paginator = Paginator(signed_list, 20)
+    paginator = Paginator(signed_list, 40)
     total = signed_list.count()
 
     page = request.GET.get('page')
