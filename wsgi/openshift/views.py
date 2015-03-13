@@ -13,7 +13,7 @@ from fitauth import get_roles
 def home(request):
     if request.user.is_authenticated():
         roles = get_roles(request.user)
-        badroles = ('B-18000-STUDENT' or 'B-18000-ZAMESTNANEC') not in roles
+        badroles = 'B-18000-STUDENT' not in roles and 'B-18000-ZAMESTNANEC' not in roles
         if badroles:
             auth_logout(request)
     else:
