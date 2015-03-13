@@ -58,16 +58,15 @@
   <div class="container col-md-6">
     <h2>Podepsat petici</h2>
     {% if user.is_authenticated %}
-    <p>Jste přihlášen jako FIŤák {{ user.username }}
-    {% if user.get_full_name %}({{ user.get_full_name }}){% endif %}.
+    <p>Jste přihlášen(a) jako {{ user.username }}{% if user.get_full_name %} ({{ user.get_full_name }}){% endif %}.
     <a  class="btn btn-xs btn-danger" href="/logout/">Odhlásit</a></p>
 
     {% if longuser %}
-      <p>Pokud jste se v minulosti přihlásili na tento web přes Google a petici podepsali, prosím, nepodepisujte ji znovu.</p>
+      <p>Pokud jste se v minulosti přihlásil(a) na tento web přes Google a petici podepsal(a), prosím, nepodepisujte ji znovu.</p>
     {% endif %}
     
     {% if user.signature.signed %}
-    <p>Děkujeme za vaši podporu. Pokud byste si to přáli, kdykoliv se sem můžete vrátit, přihlásit se a <a href="{% url 'views.toggle' %}">svůj podpis zrušit</a>, ačkoli byste nás tím velice zarmoutili.</p>
+    <p>Děkujeme za vaši podporu. Pokud byste si to přál(a), kdykoliv se sem můžete vrátit, přihlásit se a <a href="{% url 'views.toggle' %}">svůj podpis zrušit</a>, ačkoli byste nás tím velice zarmoutil(a).</p>
     {% else %}
     <p><a href="{% url 'views.toggle' %}" class="btn btn-lg btn-primary">Podepsat petici</a></p>
     {% endif %}
@@ -85,8 +84,8 @@
     <div class="panel panel-default">
       <table class="table">
         <tr>
-          <th>Člen akademické obce FIT ČVUT</th>
-          <th>Podepsal petici</th>
+          <th>Člen(ka) akademické obce FIT ČVUT</th>
+          <th>Podepsal(a) petici</th>
         </tr>
       {% for signature in signatures %}
         <tr>
