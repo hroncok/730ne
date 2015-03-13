@@ -73,10 +73,6 @@
     <p>Jste přihlášen(a) jako {{ user.username }}{% if user.get_full_name %} ({{ user.get_full_name }}){% endif %}.
     <a  class="btn btn-xs btn-danger" href="/logout/">Odhlásit</a></p>
 
-    {% if longuser %}
-      <p>Pokud jste se v&nbsp;minulosti přihlásil(a) na tento web přes Google a petici podepsal(a), prosím, nepodepisujte ji znovu.</p>
-    {% endif %}
-    
     {% if user.signature.signed %}
     <p>Děkujeme za vaši podporu. Pokud byste si to přál(a), kdykoliv se sem můžete vrátit, přihlásit se a <a href="{% url 'views.toggle' %}">svůj podpis zrušit</a>, ačkoli byste nás tím velice zarmoutil(a).</p>
     {% else %}
