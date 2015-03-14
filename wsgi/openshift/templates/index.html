@@ -94,12 +94,15 @@
     
     
     {% else %}
+      <p><a href="{% url 'social:begin' 'fit' %}" class="btn btn-lg btn-primary">Přihlásit se přes fakultní účet</a></p>
       {% if badroles %}
-      <p>Podle Usermapu nejste student ani zaměstnanec FIT ČVUT.
-      Pokud si myslíte, že je to špatně, kontaktujte nás přes GitHub (odkaz je v&nbsp;patičce).</p>
+        <p>Podle Usermapu nejste student ani zaměstnanec FIT ČVUT.
+        Pokud si myslíte, že je to špatně, kontaktujte nás přes GitHub (odkaz je v&nbsp;patičce).</p>
       {% endif %}
-        <p><a href="{% url 'social:begin' 'fit' %}" class="btn btn-lg btn-primary">Přihlásit se přes fakultní účet</a></p>
     {% endif %}
+    {% for message in messages %}
+      <p>{{ message }}</p>
+    {% endfor %}
     
     <h2>Signatáři ({{ total }})</h2>
     <div class="panel panel-default">
