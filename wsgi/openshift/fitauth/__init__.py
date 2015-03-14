@@ -38,6 +38,8 @@ def get_roles(user):
     """Gets latest roles of given user"""
     extra_data = user.social_auth.latest(field_name='pk').extra_data
     try:
-        return extra_data['roles']
+        if extra_data['roles']:
+            return extra_data['roles']
     except KeyError:
-        return []
+        pass
+    return []
