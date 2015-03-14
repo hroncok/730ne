@@ -88,6 +88,11 @@
       <div class="fb-share-button" data-layout="button_count" data-href="http://730ne.cz/"></div>
     </p>
 
+      {% if teacher %}
+      <p>Učíte? Nezapomeňte si v KOSu v <em>Ostatní | Časové omezení učitele</em> nastavit na první dvě hodiny spánek.
+      Vypadá to pak <a href="https://timetable.fit.cvut.cz/archive/B121/public/cz/ucitele/31/86/u318677000.html">asi takhle</a>.</p>
+      {% endif %}
+
     {% else %}
     <p><a href="{% url 'views.toggle' %}" class="btn btn-lg btn-primary">Podepsat petici</a></p>
     {% endif %}

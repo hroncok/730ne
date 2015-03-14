@@ -16,8 +16,10 @@ def home(request):
         badroles = 'B-18000-STUDENT' not in roles and 'B-18000-ZAMESTNANEC' not in roles
         if badroles:
             auth_logout(request)
+        teacher = 'B-18000-ZAMESTNANEC' in roles
     else:
         badroles = False
+        teacher = False
 
     signed_list = models.Signature.objects.filter(signed=True).order_by('timestamp')
     paginator = Paginator(signed_list, 45)
@@ -34,6 +36,7 @@ def home(request):
     return render_to_response('index.html', {
         'user': request.user,
         'badroles': badroles,
+        'teacher': teacher,
         'signatures': signatures,
         'total': total,
     }, RequestContext(request))
