@@ -21,5 +21,7 @@ def detail(user):
         output += ' <span class="label label-info">zaměstnanec</span>'
     if 'B-18000-STUDENT' in roles:
         output += ' <span class="label label-primary">student</span>'
+    if 'B-18000-UCASTNIK-CZV' in roles:
+        output += ' <span class="label label-default">cžv</span>'
 
     return mark_safe(output)
