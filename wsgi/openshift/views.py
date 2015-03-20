@@ -23,7 +23,7 @@ def home(request):
         badroles = False
         teacher = False
 
-    signed_list = models.Signature.objects.filter(signed=True).order_by('timestamp')
+    signed_list = models.Signature.objects.filter(signed=True).order_by('-timestamp')
     paginator = Paginator(signed_list, 45)
     total = signed_list.count()
 
