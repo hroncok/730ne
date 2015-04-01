@@ -1,4 +1,6 @@
 RewriteEngine On
 RewriteBase /
-RewriteCond %{HTTP_HOST} ^www.730ne.cz
-RewriteRule ^(.*)$ http://730ne.cz/ [R=301,L]
+
+# www to non-www
+RewriteCond %{HTTP_HOST} ^www.730ne.cz$
+RewriteRule (.*) http://730ne.cz:80/ [R=301,L]
