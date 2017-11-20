@@ -14,11 +14,11 @@ def home(request):
     if request.user.is_authenticated():
         roles = get_roles(request.user)
         badroles = ('B-18000-STUDENT' not in roles and
-                    'B-18000-ZAMESTNANEC' not in roles and
+                    'B-18000-SUMA-ZAMESTNANEC' not in roles and
                     'B-18000-UCASTNIK-CZV' not in roles)
         if badroles:
             auth_logout(request)
-        teacher = 'B-18000-ZAMESTNANEC' in roles
+        teacher = 'B-18000-SUMA-ZAMESTNANEC' in roles
     else:
         badroles = False
         teacher = False

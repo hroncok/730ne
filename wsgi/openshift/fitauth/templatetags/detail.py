@@ -17,7 +17,7 @@ def detail(user):
         output = user.username
 
     roles = get_roles(user)
-    if 'B-18000-ZAMESTNANEC' in roles:
+    if 'B-18000-SUMA-ZAMESTNANEC' in roles or 'B-18000-ZAMESTNANEC' in roles:
         output += ' <span class="label label-info">zaměstnanec</span>'
     if 'B-18000-STUDENT' in roles:
         output += ' <span class="label label-primary">student</span>'
